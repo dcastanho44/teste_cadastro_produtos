@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PrincipalController;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [PrincipalController::class, 'principal'])->name('site.principal');
+
+Route::prefix('/app')->group(function() {
+    Route::get('/home', [HomeController::class, 'home'])->name('app.home');
+    Route::resource('produto', 'App\Http\Controllers\ProdutoController');
+    Route::resource('tag', 'App\Http\Controllers\TagController');
 });
