@@ -14,8 +14,8 @@ class CreateProdutoTagsTable extends Migration
     public function up()
     {
         Schema::create('produto_tags', function (Blueprint $table) {
-            $table->unsignedBigInteger('produto_id')->primary();
-            $table->unsignedBigInteger('tags_id')->primary();
+            $table->unsignedBigInteger('produto_id')->unique('produto_id');
+            $table->unsignedBigInteger('tags_id');
             $table->timestamps();
 
             //constraint
