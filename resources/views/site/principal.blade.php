@@ -1,1 +1,6 @@
-<h3>Principal (view)</h3>
+@extends('site.layouts.basico')
+
+@section ('titulo')
+@section ('conteudo')
+    <br>Principal</b>
+@endsection

@@ -12,9 +12,11 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('app.produto.index');
+        $produtos = Produto::paginate(10); 
+        
+        return view('app.produto.index', ['produtos' => $produtos, 'request' => $request->all() ]);
     }
 
     /**
@@ -80,6 +82,7 @@ class ProdutoController extends Controller
      */
     public function destroy(Produto $produto)
     {
-        //
+        $produto->delete();
+        return redirect()->route('produto.index', ['produto' => $produto->id]);
     }
 }
