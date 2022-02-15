@@ -20,6 +20,10 @@ class TagSeeder extends Seeder
         
         Tag::create([
             'name' => 'Móveis'
+        ]); 
+
+        Tag::create([
+            'name' => 'Eletrônicos'
         ]);
     }
 }

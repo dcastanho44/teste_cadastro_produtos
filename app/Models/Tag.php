@@ -9,4 +9,7 @@ class Tag extends Model
 {
     
     protected $fillable = ['name'];
+    public function produto (){
+        return $this->hasMany(ProdutoTag::class);
+    }
 }

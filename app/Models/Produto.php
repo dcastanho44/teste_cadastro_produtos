@@ -9,4 +9,8 @@ class Produto extends Model
 {
     protected $table = 'produto';
     protected $fillable = ['name'];
+
+    public function tags (){
+        return $this->hasMany(ProdutoTag::class);
+    }
 }
