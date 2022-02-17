@@ -12,9 +12,10 @@ class TagController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('app.tag.index');
+        $tags = Tag::paginate(15); 
+        return view('app.tag.index', ['tags' => $tags, 'request' => $request->all() ]);
     }
 
     /**
@@ -24,7 +25,7 @@ class TagController extends Controller
      */
     public function create()
     {
-        //
+        return view('app.tag.create');
     }
 
     /**
@@ -35,7 +36,20 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $regras = [
+            'name' => 'required|min:3|max:40',
+        ];
+
+        $feedback = [
+            'name.min' => 'O campo nome deve ter no mínimo 3 caracteres',
+            'name.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'name.required' => 'O campo precisa ser preenchido'
+        ];
+
+        $request->validate($regras, $feedback);
+        
+        Tag::create($request->all());
+        return redirect()->route('tag.index');
     }
 
     /**
@@ -57,7 +71,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //
+        return view('app.tag.edit', ['tag' => $tag]);
     }
 
     /**
@@ -69,7 +83,20 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
-        //
+        $regras = [
+            'name' => 'required|min:3|max:40',
+        ];
+
+        $feedback = [
+            'name.min' => 'O campo nome deve ter no mínimo 3 caracteres',
+            'name.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'name.required' => 'O campo precisa ser preenchido'
+        ];
+
+        $request->validate($regras, $feedback);
+        
+        $tag->update($request->all());
+        return redirect()->route('tag.index', ['tag' => $tag->id]);
     }
 
     /**
@@ -80,6 +107,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->route('tag.index');
     }
 }

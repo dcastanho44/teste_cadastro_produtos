@@ -11,6 +11,6 @@ class Produto extends Model
     protected $fillable = ['name'];
 
     public function tags (){
-        return $this->hasMany(ProdutoTag::class);
+        return $this->belongsToMany(Produto::class, "produto_tags", "produto_id", "tag_id");
     }
 }

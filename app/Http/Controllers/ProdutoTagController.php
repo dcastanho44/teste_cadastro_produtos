@@ -35,7 +35,10 @@ class ProdutoTagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $produtotag = ProdutoTag::create([
+            "produto_id" => $request->input('produto_id'),
+            "tags_id" => $request->input('tag')
+        ]);
     }
 
     /**

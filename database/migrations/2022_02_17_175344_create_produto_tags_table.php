@@ -16,11 +16,12 @@ class CreateProdutoTagsTable extends Migration
         Schema::create('produto_tags', function (Blueprint $table) {
             $table->unsignedBigInteger('produto_id');
             $table->unsignedBigInteger('tags_id');
-            $table->timestamps();
+            $table->primary(['produto_id','tags_id']);
 
             //constraint
-            $table->foreign('produto_id')->references('id')->on('produto');
-            $table->foreign('tags_id')->references('id')->on('tags');
+            $table->foreign('produto_id')->references('id')->on('produto')->onDelete('cascade');
+            $table->foreign('tags_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 

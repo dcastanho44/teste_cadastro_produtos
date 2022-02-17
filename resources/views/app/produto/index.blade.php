@@ -12,8 +12,8 @@
 
         <div class="menu">
             <ul>
-                <li><a href="#">Novo</a></li>
-                <li><a href="#">Consulta</a></li>
+                <li><a href="{{ route('produto.create') }}">Novo Produto</a></li>
+                <li><a href="{{ route('produto.index') }}">Voltar</a></li>
             </ul>
         </div>
         
@@ -22,8 +22,8 @@
                 <table border="1" width="100%">
                     <thead>
                         <tr>
-                            <th>Nome</th>
-                            <th>Descrição</th>
+                            <th>ID</th>
+                            <th>Produto</th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -40,12 +40,11 @@
                                     <form id="form_{{$produto->id}}" method="post" action="{{ route('produto.destroy', ['produto' => $produto->id])}}">
                                         @method('DELETE')
                                         @csrf
-                                        <!--<button type="submit">Excluir</button>-->
-                                        <a href="#" onClick="document.getElementbyId('form_{{$produto->id}}').submit()">Excluir</a>
-                                        
+                                        <button type="submit">Excluir</button>
+                                        <!--<a href="#" onClick="document.getElementbyId('form_{{$produto->id}}').submit()">Excluir</a> -->
                                     </form>
                                 </td>
-                                <td><a href="#"> Editar</a></td>
+                                <td><a href="{{ route('produto.edit', ['produto' => $produto->id]) }}"> Editar</a></td>
                             </tr>
                         @endforeach
                     </tbody>
