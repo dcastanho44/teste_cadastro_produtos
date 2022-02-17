@@ -1,18 +1,18 @@
 @extends('site.layouts.basico')
 
-@section ('titulo', 'Produto')
+@section ('titulo', 'Produtos')
 
 @section ('conteudo')
     
     <div class="conteudo-pagina">
 
         <div class="titulo-pagina-2">
-            <p>Produtos</p>
+            <p>Produtos - Listar</p>
         </div>
 
         <div class="menu">
             <ul>
-                <li><a href="{{ route('produto.create') }}">Novo Produto</a></li>
+                <li><a href="{{ route('produto.create') }}">Novo</a></li>
                 <li><a href="{{ route('produto.index') }}">Voltar</a></li>
             </ul>
         </div>
@@ -23,10 +23,7 @@
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Produto</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th>Nome</th>
                         </tr>
                     </thead>
 
@@ -35,17 +32,29 @@
                             <tr>
                                 <td>{{ $produto->id }}</td>
                                 <td>{{ $produto->name }}</td>
-                                <td><a href="{{ route('produto.show', ['produto' => $produto->id]) }}">Visualizar</a></td>
-                                <td>
-                                    <form id="form_{{$produto->id}}" method="post" action="{{ route('produto.destroy', ['produto' => $produto->id])}}">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit">Excluir</button>
-                                        <!--<a href="#" onClick="document.getElementbyId('form_{{$produto->id}}').submit()">Excluir</a> -->
-                                    </form>
-                                </td>
-                                <td><a href="{{ route('produto.edit', ['produto' => $produto->id]) }}"> Editar</a></td>
                             </tr>
+                            <tr>
+                                <td colspan="6">
+                                    <p>Lista de Produtos</p>
+                                    <table border="1" style="margin:20px">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Nome</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($produto->tags as $key => $tag)
+                                                <tr>
+                                                    <td>{{ $tag->id }}</td>
+                                                    <td>{{ $tag->nome }}</td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+            
                         @endforeach
                     </tbody>
                 </table>
@@ -62,7 +71,7 @@
                 <br>
                 {{ $produtos->lastItem() }} - Número do último registro da página
                 !-->
-                <br>
+
                 Exibindo {{ $produtos->count() }} produtos de {{ $produtos->total() }} (de {{ $produtos->firstItem() }} a {{ $produtos->lastItem() }})
             </div>
         </div>
